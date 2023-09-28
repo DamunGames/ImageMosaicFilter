@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta name="author" content="DamunGames">
+    <meta name="description" content="画像にモザイクやぼかしをかけて保存するページ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像効果加工</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <label>画像にエフェクトをかけて保存できるページです。</label>
+    <br>
+    <div style="display: inline-block;">
+        <input type="checkbox" id="darkModeCheckbox" checked>
+        <label for="darkModeCheckbox">:ダークモード</label>
+    </div>
+    <div style="display: inline-block;">
+        <input type="checkbox" id="showFileNameCheckbox" checked>
+        <label for="showFileNameCheckbox">:ファイル名表示</label>
+        <button id="downloadButton" style="display: inline-block;" disabled>ダウンロード</button>
+        <input type="file" id="imageInput">
+        <label for="imageInput" class="custom-file-upload" id="imageInputButton">ファイルを選択</label>
+    </div>
+    <div id="scaleParameters" style="display: block;">
+        <label for="scaleNumberInput">スケール%:</label>
+        <input type="range" id="scaleSlider" min="0.01" max="2" step="0.01" value="1">
+        <input type="number" id="scaleNumberInput" step="0.01" value="1">
+        <input type="button" value="リセット" id="scaleResetButton">
+    </div>
+
+    <fieldset>
+        <legend>エフェクト選択</legend>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="mosaic" id="mosaicRadio" checked>
+            <label for="mosaicRadio">モザイク</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="blur" id="blurRadio">
+            <label for="blurRadio">ぼかし</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="brightness" id="brightnessRadio">
+            <label for="brightnessRadio">輝度</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="contrast" id="contrastRadio">
+            <label for="contrastRadio">コントラスト</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="dropShadow" id="dropShadowRadio">
+            <label for="dropShadowRadio">ドロップシャドウ</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="grayscale" id="grayscaleRadio">
+            <label for="grayscaleRadio">グレースケール</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="hueRotate" id="hueRotateRadio">
+            <label for="hueRotateRadio">色相回転</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="invert" id="invertRadio">
+            <label for="invertRadio">色反転</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="opacity" id="opacityRadio">
+            <label for="opacityRadio">透過</label>
+        </div>
+        <div style="display: inline-block;">
+            <input type="radio" name="effects" value="saturate" id="saturateRadio">
+            <label for="saturateRadio">彩度</label>
+        </div>
+
+        <br>
+
+        <div id="mosaicParameters" style="display: block;">
+            <label for="mosaicNumberInput">ブロックサイズpx:</label>
+            <input type="range" id="mosaicSlider" min="1" max="100" value="1">
+            <input type="number" id="mosaicNumberInput" value="1">
+        </div>
+        <div id="blurParameters" style="display: none;">
+            <label for="blurNumberInput">ブラーpx:</label>
+            <input type="range" id="blurSlider" min="0" max="50" value="0">
+            <input type="number" id="blurNumberInput" value="0">
+            <br>
+            <label for="blurCheckbox">リサイズ:</label>
+            <input type="checkbox" id="blurCheckbox">
+        </div>
+        <div id="brightnessParameters" style="display: none;">
+            <label for="brightnessNumberInput">輝度:</label>
+            <input type="range" id="brightnessSlider" min="0" max="10" step="0.01" value="1">
+            <input type="number" id="brightnessNumberInput" step="0.01" value="1">
+        </div>
+        <div id="contrastParameters" style="display: none;">
+            <label for="contrastNumberInput">コントラスト%:</label>
+            <input type="range" id="contrastSlider" min="0" max="200" value="100">
+            <input type="number" id="contrastNumberInput" value="100">
+        </div>
+        <div id="dropShadowParameters" style="display: none;">
+            <label for="dropShadowOffsetXNumberInput">オフセットX:</label>
+            <input type="range" id="dropShadowOffsetXSlider" min="-100" max="100" value="3">
+            <input type="number" id="dropShadowOffsetXNumberInput" value="3">
+            <br>
+            <label for="dropShadowOffsetYNumberInput">オフセットY:</label>
+            <input type="range" id="dropShadowOffsetYSlider" min="-100" max="100" value="3">
+            <input type="number" id="dropShadowOffsetYNumberInput" value="3">
+            <br>
+            <label for="dropShadowBlurRadiusNumberInput">ぼかし半径:</label>
+            <input type="range" id="dropShadowBlurRadiusSlider" min="0" max="100" value="3">
+            <input type="number" id="dropShadowBlurRadiusNumberInput" value="3">
+            <br>
+            <label for="dropShadowColorPicker">カラー:</label>
+            <input type="color" id="dropShadowColorPicker" value="#202020A0">
+            <br>
+        </div>
+        <div id="grayscaleParameters" style="display: none;">
+            <label for="grayscaleNumberInput">グレースケール%:</label>
+            <input type="range" id="grayscaleSlider" min="0" max="100" value="0">
+            <input type="number" id="grayscaleNumberInput" value="0">
+        </div>
+        <div id="hueRotateParameters" style="display: none;">
+            <label for="hueRotateNumberInput">色相回転角度(360):</label>
+            <input type="range" id="hueRotateSlider" min="0" max="360" value="0">
+            <input type="number" id="hueRotateNumberInput" value="0">
+        </div>
+        <div id="invertParameters" style="display: none;">
+            <label for="invertNumberInput">色反転%:</label>
+            <input type="range" id="invertSlider" min="0" max="100" value="0">
+            <input type="number" id="invertNumberInput" value="0">
+        </div>
+        <div id="opacityParameters" style="display: none;">
+            <label for="opacityNumberInput">不透過%:</label>
+            <input type="range" id="opacitySlider" min="0" max="100" value="100">
+            <input type="number" id="opacityNumberInput" value="100">
+        </div>
+        <div id="saturateParameters" style="display: none;">
+            <label for="saturateNumberInput">彩度%:</label>
+            <input type="range" id="saturateSlider" min="0" max="1000" value="100">
+            <input type="number" id="saturateNumberInput" value="100">
+        </div>
+    </fieldset>
+
+    <label id="statusLabel"></label>
+    <br>
+
+    <canvas id="showImageCanvas"></canvas>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

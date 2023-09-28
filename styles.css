@@ -1,0 +1,28 @@
+/* 通常のスタイル */
+:root {
+    background-color: #ffffff;
+    color: #333333;
+}
+/* ダークモード用のスタイル */
+:root.darkmode {
+    background-color: #333333;    
+    color: #ffffff;
+}
+
+/* カスタムスタイルのファイル選択ボタン */
+.custom-file-upload {
+    font-size: 13px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 2px 7px;
+    background-color: #efefef;
+    color: #000000;
+    border-radius: 2px;
+    letter-spacing: 0px;
+}
+.custom-file-upload:hover {
+    background-color: #e0e0e0;
+}
+.custom-file-upload:active {
+    background-color: #f6f6f6;
+}
