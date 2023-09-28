@@ -1,10 +1,10 @@
-# ImageMosaicProcessor
+# ImageMosaicFilter
 
 選択された画像をプレビューしながら、モザイク等の効果処理を行うWebページのリポジトリです。
 
 CanvasRenderingContext2Dのfilterプロパティを使用しているため、現状Safariでは動作しないようです。
 
-https://damungames.github.io/ImageMosaicProcessor/
+https://damungames.github.io/ImageMosaicFilter/
 
 ## 使用方法
 
